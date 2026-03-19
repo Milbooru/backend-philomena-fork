@@ -93,7 +93,10 @@ defmodule Philomena.MixProject do
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
 
       # Authorization
-      {:canary, "~> 1.2"}
+      {:canary, "~> 1.2"},
+
+      # CORS
+      {:cors_plug, "~> 3.0"}
     ]
   end
 

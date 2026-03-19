@@ -8,6 +8,12 @@ defmodule PhilomenaWeb.Endpoint do
   # Overwrite remote_ip based on X-Forwarded-For
   plug RemoteIp
 
+  # CORS - allow cross-origin requests from the CatMilbooru frontend
+  plug CORSPlug,
+    origin: ["http://localhost:4200", "http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    headers: ["Authorization", "Content-Type", "Accept"]
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
