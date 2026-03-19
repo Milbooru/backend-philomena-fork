@@ -26,9 +26,8 @@ defmodule Philomena.Images.TagValidator do
     rating_set = ratings(tag_set)
 
     changeset
-    |> validate_number_of_tags(tag_set, 3)
+    |> validate_number_of_tags(tag_set, 1)
     |> validate_bad_words(tag_set)
-    |> validate_has_rating(rating_set)
     |> validate_safe(rating_set)
     |> validate_sexual_exclusion(rating_set)
     |> validate_horror_exclusion(rating_set)
