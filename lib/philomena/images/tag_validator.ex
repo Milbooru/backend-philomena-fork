@@ -46,5 +46,4 @@ defmodule Philomena.Images.TagValidator do
     |> Enum.map(& &1.name)
     |> MapSet.new()
   end
-
 end
