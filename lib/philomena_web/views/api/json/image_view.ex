@@ -27,6 +27,7 @@ defmodule PhilomenaWeb.Api.Json.ImageView do
       updated_at: image.updated_at,
       first_seen_at: image.first_seen_at,
       duplicate_of: image.duplicate_id,
+      annotations: image.annotations,
       deletion_reason: nil,
       hidden_from_users: true
     }

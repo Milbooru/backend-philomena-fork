@@ -90,6 +90,7 @@ defmodule Philomena.Images.Image do
     field :removed_sources, {:array, :any}, default: [], virtual: true
     field :added_sources, {:array, :any}, default: [], virtual: true
     field :ratings_changed, :boolean, default: false, virtual: true
+    field :annotations, {:array, :map}, default: []
 
     field :uploaded_image, :string, virtual: true
     field :removed_image, :string, virtual: true
@@ -113,9 +114,20 @@ defmodule Philomena.Images.Image do
     |> validate_required([])
   end
 
+  defp decode_annotations(%{"annotations" => annotations} = attrs) when is_binary(annotations) do
+    case Jason.decode(annotations) do
+      {:ok, decoded} -> %{attrs | "annotations" => decoded}
+      _ -> %{attrs | "annotations" => []}
+    end
+  end
+
+  defp decode_annotations(attrs), do: attrs
+
   def creation_changeset(image, attrs, attribution) do
+    attrs = decode_annotations(attrs)
+
     image
-    |> cast(attrs, [:anonymous, :source_url, :description])
+    |> cast(attrs, [:anonymous, :source_url, :description, :annotations])
     |> change(first_seen_at: DateTime.utc_now(:second))
     |> change(attribution)
     |> validate_length(:description, max: 50_000, count: :bytes)

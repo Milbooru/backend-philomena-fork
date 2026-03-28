@@ -2,8 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 17.4
--- Dumped by pg_dump version 17.4
+\restrict 2howFbyK0FfBHb8OsItc2DIY7AyIde1oV0RBYqBLHJNb9ct9vzTyNbwg0POaJM4
+
+-- Dumped from database version 17.6
+-- Dumped by pg_dump version 17.9
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -819,6 +821,7 @@ CREATE TABLE public.game_players (
     rank_override character varying
 );
 
+
 --
 -- Name: game_players_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
@@ -1133,7 +1136,8 @@ CREATE TABLE public.images (
     description character varying DEFAULT ''::character varying NOT NULL,
     scratchpad character varying,
     approved boolean DEFAULT false,
-    image_orig_size integer
+    image_orig_size integer,
+    annotations jsonb[] DEFAULT ARRAY[]::jsonb[]
 );
 
 
@@ -5588,6 +5592,7 @@ ALTER TABLE ONLY public.game_players
 ALTER TABLE ONLY public.game_teams
     ADD CONSTRAINT game_teams_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.games(id) ON DELETE CASCADE;
 
+
 --
 -- Name: image_comment_notifications image_comment_notifications_comment_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
@@ -5736,6 +5741,8 @@ ALTER TABLE ONLY public.users
 -- PostgreSQL database dump complete
 --
 
+\unrestrict 2howFbyK0FfBHb8OsItc2DIY7AyIde1oV0RBYqBLHJNb9ct9vzTyNbwg0POaJM4
+
 INSERT INTO public."schema_migrations" (version) VALUES (20200503002523);
 INSERT INTO public."schema_migrations" (version) VALUES (20200607000511);
 INSERT INTO public."schema_migrations" (version) VALUES (20200617111116);
@@ -5765,3 +5772,4 @@ INSERT INTO public."schema_migrations" (version) VALUES (20250407021536);
 INSERT INTO public."schema_migrations" (version) VALUES (20250501174007);
 INSERT INTO public."schema_migrations" (version) VALUES (20250502110018);
 INSERT INTO public."schema_migrations" (version) VALUES (20250507183410);
+INSERT INTO public."schema_migrations" (version) VALUES (20260328000000);
