@@ -71,6 +71,9 @@ defmodule Philomena.MixProject do
       {:sweet_xml, "~> 0.7"},
       {:inet_cidr, "~> 1.0"},
 
+      # Firebase JWT verification
+      {:jose, "~> 1.11"},
+
       # SMTP
       {:swoosh, "~> 1.19"},
       {:mua, "~> 0.2"},

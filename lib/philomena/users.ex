@@ -41,6 +41,32 @@ defmodule Philomena.Users do
   end
 
   @doc """
+  Gets a user by Firebase UID.
+  """
+  def get_user_by_firebase_uid(uid) when is_binary(uid) do
+    Repo.get_by(User, firebase_uid: uid)
+  end
+
+  @doc """
+  Registers a user via Firebase authentication (no password required).
+  """
+  def register_user_from_firebase(attrs) do
+    %User{}
+    |> User.firebase_registration_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Links a Firebase UID to an existing Philomena account.
+  Used on first Firebase login when the account was created via legacy registration.
+  """
+  def link_firebase_uid(%User{} = user, firebase_uid) when is_binary(firebase_uid) do
+    user
+    |> Ecto.Changeset.change(firebase_uid: firebase_uid)
+    |> Repo.update()
+  end
+
+  @doc """
   Gets a user by email.
 
   ## Examples

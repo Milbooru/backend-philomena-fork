@@ -12,6 +12,7 @@ config :bcrypt_elixir,
 
 config :philomena,
   anonymous_name_salt: System.fetch_env!("ANONYMOUS_NAME_SALT"),
+  firebase_project_id: System.get_env("FIREBASE_PROJECT_ID", "milbooru-811d9"),
   hcaptcha_secret_key: System.fetch_env!("HCAPTCHA_SECRET_KEY"),
   hcaptcha_site_key: System.fetch_env!("HCAPTCHA_SITE_KEY"),
   opensearch_url: System.get_env("OPENSEARCH_URL", "https://admin:admin@localhost:9200"),

@@ -51,6 +51,7 @@ defmodule Philomena.Users.User do
     field :confirmed_at, :utc_datetime
     field :otp_required_for_login, :boolean
     field :authentication_token, :string
+    field :firebase_uid, :string
     field :failed_attempts, :integer
     # field :unlock_token, :string
     field :locked_at, :utc_datetime
@@ -152,6 +153,23 @@ defmodule Philomena.Users.User do
     |> validate_name()
     |> validate_email()
     |> validate_password()
+    |> put_api_key()
+    |> put_slug()
+    |> unique_constraints()
+  end
+
+  @doc """
+  A user changeset for Firebase-authenticated registration.
+  Skips password validation — Firebase owns the credential.
+  Sets confirmed_at immediately since Firebase verified the email.
+  """
+  def firebase_registration_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:name, :email, :firebase_uid])
+    |> validate_name()
+    |> validate_email()
+    |> validate_required([:firebase_uid])
+    |> put_change(:confirmed_at, DateTime.utc_now(:second))
     |> put_api_key()
     |> put_slug()
     |> unique_constraints()
@@ -583,6 +601,7 @@ defmodule Philomena.Users.User do
     |> unique_constraint(:slug, name: :index_users_on_slug)
     |> unique_constraint(:email, name: :index_users_on_email)
     |> unique_constraint(:authentication_token, name: :index_users_on_authentication_token)
+    |> unique_constraint(:firebase_uid, name: :users_firebase_uid_index)
   end
 
   defp extract_token(%{"user" => %{"twofactor_token" => t}}),

@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict 2howFbyK0FfBHb8OsItc2DIY7AyIde1oV0RBYqBLHJNb9ct9vzTyNbwg0POaJM4
+\restrict s8E5X3bszjnkUOjKfMoExU1IAh4mGCH8BkB6zOIjeovnxtLhWEGobM9fZbWbJtA
 
 -- Dumped from database version 17.6
 -- Dumped by pg_dump version 17.9
@@ -2306,7 +2306,8 @@ CREATE TABLE public.users (
     delay_home_images boolean DEFAULT true,
     staff_delay_home_images boolean DEFAULT false,
     borderless_tags boolean DEFAULT false,
-    rounded_tags boolean DEFAULT false
+    rounded_tags boolean DEFAULT false,
+    firebase_uid character varying(255)
 );
 
 
@@ -4698,6 +4699,13 @@ CREATE INDEX user_tokens_user_id_index ON public.user_tokens USING btree (user_i
 
 
 --
+-- Name: users_firebase_uid_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX users_firebase_uid_index ON public.users USING btree (firebase_uid);
+
+
+--
 -- Name: channel_live_notifications channel_live_notifications_channel_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5741,7 +5749,7 @@ ALTER TABLE ONLY public.users
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 2howFbyK0FfBHb8OsItc2DIY7AyIde1oV0RBYqBLHJNb9ct9vzTyNbwg0POaJM4
+\unrestrict s8E5X3bszjnkUOjKfMoExU1IAh4mGCH8BkB6zOIjeovnxtLhWEGobM9fZbWbJtA
 
 INSERT INTO public."schema_migrations" (version) VALUES (20200503002523);
 INSERT INTO public."schema_migrations" (version) VALUES (20200607000511);
@@ -5773,3 +5781,4 @@ INSERT INTO public."schema_migrations" (version) VALUES (20250501174007);
 INSERT INTO public."schema_migrations" (version) VALUES (20250502110018);
 INSERT INTO public."schema_migrations" (version) VALUES (20250507183410);
 INSERT INTO public."schema_migrations" (version) VALUES (20260328000000);
+INSERT INTO public."schema_migrations" (version) VALUES (20260408000001);

@@ -117,6 +117,13 @@ defmodule PhilomenaWeb.Router do
     resources "/watched", WatchedController, only: [:index]
   end
 
+  # Firebase authentication — no Philomena auth required, token carries its own proof
+  scope "/api/v1/json", PhilomenaWeb.Api.Json, as: :api_json_firebase do
+    pipe_through [:accepts_json]
+
+    post "/firebase/session", FirebaseSessionController, :create
+  end
+
   scope "/api/v1/json", PhilomenaWeb.Api.Json, as: :api_json do
     pipe_through [:accepts_json, :api, :ensure_tor_authorized]
 

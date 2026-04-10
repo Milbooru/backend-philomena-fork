@@ -30,6 +30,9 @@ defmodule Philomena.Application do
          node_name: valid_node_name(node())
        ]},
 
+      # Firebase JWKS key cache
+      Philomena.FirebaseAuth,
+
       # Advert update batching
       Philomena.Adverts.Server,
 
