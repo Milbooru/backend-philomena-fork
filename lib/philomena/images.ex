@@ -193,9 +193,6 @@ defmodule Philomena.Images do
 
   defp maybe_approve_image(_image, nil), do: false
 
-  defp maybe_approve_image(_image, %User{verified: false, role: role}) when role == "user",
-    do: false
-
   defp maybe_approve_image(image, _user), do: approve_image(image)
 
   defp increment_user_stats(nil), do: false
